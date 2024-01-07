@@ -7,7 +7,7 @@ app = express(),
   bodyParser = require("body-parser"),
   jsonwebtoken = require("jsonwebtoken");
 
-var userHandlers = require('./apps/controllers/api/userController');
+var userHandlers = require('./apps/controllers/api/authController');
 
 app.listen(PORT, () => {
   console.log(`Máy chủ đang chạy trên cổng ${PORT}`);
@@ -18,10 +18,13 @@ mongoose.connect("mongodb+srv://Gjngx:sa@cluster0.j4omnsi.mongodb.net/db_metroma
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
 app.use(express.json()); 
 app.use(cors());
+
 var controller = require(__dirname  + "/apps/controllers");
 app.use(controller);
+
 app.route('/auth/register')
   .post(userHandlers.register);
 
